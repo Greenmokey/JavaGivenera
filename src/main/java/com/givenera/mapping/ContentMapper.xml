@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.givenera.dao.share.ContentMapper" >
+  <resultMap id="BaseResultMap" type="com.givenera.share.entity.Content" >
+    <id column="APPRECIATION_ID" property="appreciationId" jdbcType="VARCHAR" />
+    <result column="addressId" property="addressid" jdbcType="VARCHAR" />
+    <result column="createdAt" property="createdat" jdbcType="TIMESTAMP" />
+    <result column="deleteStatus" property="deletestatus" jdbcType="INTEGER" />
+    <result column="isShare" property="isshare" jdbcType="INTEGER" />
+    <result column="mergeStatus" property="mergestatus" jdbcType="INTEGER" />
+    <result column="spamReportText" property="spamreporttext" jdbcType="VARCHAR" />
+    <result column="spamReportType" property="spamreporttype" jdbcType="VARCHAR" />
+    <result column="spamReporterUserId" property="spamreporteruserid" jdbcType="VARCHAR" />
+    <result column="spamStatus" property="spamstatus" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="updatedAt" property="updatedat" jdbcType="TIMESTAMP" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="categoryContent" property="categorycontent" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="creatorId" property="creatorid" jdbcType="VARCHAR" />
+    <result column="creatorUserId" property="creatoruserid" jdbcType="VARCHAR" />
+    <result column="isLook" property="islook" jdbcType="INTEGER" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.test.bean.ContentWithBLOBs" extends="BaseResultMap" >
+    <result column="eventDateInstant" property="eventdateinstant" jdbcType="BINARY" />
+    <result column="publishedAtInstant" property="publishedatinstant" jdbcType="BINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    APPRECIATION_ID, addressId, createdAt, deleteStatus, isShare, mergeStatus, spamReportText, 
+    spamReportType, spamReporterUserId, spamStatus, status, updatedAt, subject, categoryContent, 
+    description, creatorId, creatorUserId, isLook, latitude, longitude
+  </sql>
+  <sql id="Blob_Column_List" >
+    eventDateInstant, publishedAtInstant
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from appreciation
+    where APPRECIATION_ID = #{appreciationId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from appreciation
+    where APPRECIATION_ID = #{appreciationId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.test.bean.ContentWithBLOBs" >
+    insert into appreciation (APPRECIATION_ID, addressId, createdAt, 
+      deleteStatus, isShare, mergeStatus, 
+      spamReportText, spamReportType, spamReporterUserId, 
+      spamStatus, status, updatedAt, 
+      subject, categoryContent, description, 
+      creatorId, creatorUserId, isLook, 
+      latitude, longitude, eventDateInstant, 
+      publishedAtInstant)
+    values (#{appreciationId,jdbcType=VARCHAR}, #{addressid,jdbcType=VARCHAR}, #{createdat,jdbcType=TIMESTAMP}, 
+      #{deletestatus,jdbcType=INTEGER}, #{isshare,jdbcType=INTEGER}, #{mergestatus,jdbcType=INTEGER}, 
+      #{spamreporttext,jdbcType=VARCHAR}, #{spamreporttype,jdbcType=VARCHAR}, #{spamreporteruserid,jdbcType=VARCHAR}, 
+      #{spamstatus,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{updatedat,jdbcType=TIMESTAMP}, 
+      #{subject,jdbcType=VARCHAR}, #{categorycontent,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{creatorid,jdbcType=VARCHAR}, #{creatoruserid,jdbcType=VARCHAR}, #{islook,jdbcType=INTEGER}, 
+      #{latitude,jdbcType=DOUBLE}, #{longitude,jdbcType=DOUBLE}, #{eventdateinstant,jdbcType=BINARY}, 
+      #{publishedatinstant,jdbcType=BINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.bean.ContentWithBLOBs" >
+    insert into appreciation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appreciationId != null" >
+        APPRECIATION_ID,
+      </if>
+      <if test="addressid != null" >
+        addressId,
+      </if>
+      <if test="createdat != null" >
+        createdAt,
+      </if>
+      <if test="deletestatus != null" >
+        deleteStatus,
+      </if>
+      <if test="isshare != null" >
+        isShare,
+      </if>
+      <if test="mergestatus != null" >
+        mergeStatus,
+      </if>
+      <if test="spamreporttext != null" >
+        spamReportText,
+      </if>
+      <if test="spamreporttype != null" >
+        spamReportType,
+      </if>
+      <if test="spamreporteruserid != null" >
+        spamReporterUserId,
+      </if>
+      <if test="spamstatus != null" >
+        spamStatus,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="updatedat != null" >
+        updatedAt,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="categorycontent != null" >
+        categoryContent,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="creatorid != null" >
+        creatorId,
+      </if>
+      <if test="creatoruserid != null" >
+        creatorUserId,
+      </if>
+      <if test="islook != null" >
+        isLook,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="eventdateinstant != null" >
+        eventDateInstant,
+      </if>
+      <if test="publishedatinstant != null" >
+        publishedAtInstant,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appreciationId != null" >
+        #{appreciationId,jdbcType=VARCHAR},
+      </if>
+      <if test="addressid != null" >
+        #{addressid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdat != null" >
+        #{createdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletestatus != null" >
+        #{deletestatus,jdbcType=INTEGER},
+      </if>
+      <if test="isshare != null" >
+        #{isshare,jdbcType=INTEGER},
+      </if>
+      <if test="mergestatus != null" >
+        #{mergestatus,jdbcType=INTEGER},
+      </if>
+      <if test="spamreporttext != null" >
+        #{spamreporttext,jdbcType=VARCHAR},
+      </if>
+      <if test="spamreporttype != null" >
+        #{spamreporttype,jdbcType=VARCHAR},
+      </if>
+      <if test="spamreporteruserid != null" >
+        #{spamreporteruserid,jdbcType=VARCHAR},
+      </if>
+      <if test="spamstatus != null" >
+        #{spamstatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updatedat != null" >
+        #{updatedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="categorycontent != null" >
+        #{categorycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorid != null" >
+        #{creatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="creatoruserid != null" >
+        #{creatoruserid,jdbcType=VARCHAR},
+      </if>
+      <if test="islook != null" >
+        #{islook,jdbcType=INTEGER},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="eventdateinstant != null" >
+        #{eventdateinstant,jdbcType=BINARY},
+      </if>
+      <if test="publishedatinstant != null" >
+        #{publishedatinstant,jdbcType=BINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.bean.ContentWithBLOBs" >
+    update appreciation
+    <set >
+      <if test="addressid != null" >
+        addressId = #{addressid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdat != null" >
+        createdAt = #{createdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletestatus != null" >
+        deleteStatus = #{deletestatus,jdbcType=INTEGER},
+      </if>
+      <if test="isshare != null" >
+        isShare = #{isshare,jdbcType=INTEGER},
+      </if>
+      <if test="mergestatus != null" >
+        mergeStatus = #{mergestatus,jdbcType=INTEGER},
+      </if>
+      <if test="spamreporttext != null" >
+        spamReportText = #{spamreporttext,jdbcType=VARCHAR},
+      </if>
+      <if test="spamreporttype != null" >
+        spamReportType = #{spamreporttype,jdbcType=VARCHAR},
+      </if>
+      <if test="spamreporteruserid != null" >
+        spamReporterUserId = #{spamreporteruserid,jdbcType=VARCHAR},
+      </if>
+      <if test="spamstatus != null" >
+        spamStatus = #{spamstatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updatedat != null" >
+        updatedAt = #{updatedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="categorycontent != null" >
+        categoryContent = #{categorycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorid != null" >
+        creatorId = #{creatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="creatoruserid != null" >
+        creatorUserId = #{creatoruserid,jdbcType=VARCHAR},
+      </if>
+      <if test="islook != null" >
+        isLook = #{islook,jdbcType=INTEGER},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="eventdateinstant != null" >
+        eventDateInstant = #{eventdateinstant,jdbcType=BINARY},
+      </if>
+      <if test="publishedatinstant != null" >
+        publishedAtInstant = #{publishedatinstant,jdbcType=BINARY},
+      </if>
+    </set>
+    where APPRECIATION_ID = #{appreciationId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.test.bean.ContentWithBLOBs" >
+    update appreciation
+    set addressId = #{addressid,jdbcType=VARCHAR},
+      createdAt = #{createdat,jdbcType=TIMESTAMP},
+      deleteStatus = #{deletestatus,jdbcType=INTEGER},
+      isShare = #{isshare,jdbcType=INTEGER},
+      mergeStatus = #{mergestatus,jdbcType=INTEGER},
+      spamReportText = #{spamreporttext,jdbcType=VARCHAR},
+      spamReportType = #{spamreporttype,jdbcType=VARCHAR},
+      spamReporterUserId = #{spamreporteruserid,jdbcType=VARCHAR},
+      spamStatus = #{spamstatus,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      updatedAt = #{updatedat,jdbcType=TIMESTAMP},
+      subject = #{subject,jdbcType=VARCHAR},
+      categoryContent = #{categorycontent,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      creatorId = #{creatorid,jdbcType=VARCHAR},
+      creatorUserId = #{creatoruserid,jdbcType=VARCHAR},
+      isLook = #{islook,jdbcType=INTEGER},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      eventDateInstant = #{eventdateinstant,jdbcType=BINARY},
+      publishedAtInstant = #{publishedatinstant,jdbcType=BINARY}
+    where APPRECIATION_ID = #{appreciationId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.givenera.share.entity.Content" >
+    update appreciation
+    set addressId = #{addressid,jdbcType=VARCHAR},
+      createdAt = #{createdat,jdbcType=TIMESTAMP},
+      deleteStatus = #{deletestatus,jdbcType=INTEGER},
+      isShare = #{isshare,jdbcType=INTEGER},
+      mergeStatus = #{mergestatus,jdbcType=INTEGER},
+      spamReportText = #{spamreporttext,jdbcType=VARCHAR},
+      spamReportType = #{spamreporttype,jdbcType=VARCHAR},
+      spamReporterUserId = #{spamreporteruserid,jdbcType=VARCHAR},
+      spamStatus = #{spamstatus,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      updatedAt = #{updatedat,jdbcType=TIMESTAMP},
+      subject = #{subject,jdbcType=VARCHAR},
+      categoryContent = #{categorycontent,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      creatorId = #{creatorid,jdbcType=VARCHAR},
+      creatorUserId = #{creatoruserid,jdbcType=VARCHAR},
+      isLook = #{islook,jdbcType=INTEGER},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE}
+    where APPRECIATION_ID = #{appreciationId,jdbcType=VARCHAR}
+  </update>
+</mapper>
